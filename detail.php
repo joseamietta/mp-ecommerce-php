@@ -1,5 +1,5 @@
 <?php
-    define('APP_URL', 'https://joseamietta-mp-commerce-php.herokuapp.com/');
+    define('APP_URL', 'https://joseamietta-mp-commerce-php.herokuapp.com');
 
     // SDK de Mercado Pago
     require __DIR__ .  '/vendor/autoload.php';
