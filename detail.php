@@ -1,3 +1,59 @@
+<?php
+    // SDK de Mercado Pago
+    require __DIR__ .  '/vendor/autoload.php';
+
+    // sanatize post data
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    // Agrega credenciales
+    MercadoPago\SDK::setAccessToken('APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398');
+    MercadoPago\SDK::setIntegratorId("dev_24c65fb163bf11ea96500242ac130004");
+
+    // Crea un objeto de preferencia
+    $preference = new MercadoPago\Preference();
+    $preference->payment_methods = array(
+        "excluded_payment_methods" => array(
+          array("id" => "amex")
+        ),
+        "excluded_payment_types" => array(
+          array("id" => "atm")
+        ),
+        "installments" => 6
+      );
+      $preference->back_urls = array(
+        "success" => "http://http://mp.local.25watts.com.ar/success.php",
+        "failure" => "http://http://mp.local.25watts.com.ar/failure.php",
+        "pending" => "http://http://mp.local.25watts.com.ar/pending.php"
+    );
+    $preference->auto_return = "approved";
+    $preference->external_reference = "jose@25watts.com.ar";
+    $preference->notification_url = 'http://http://mp.local.25watts.com.ar/notification.php';
+
+      $payer = new MercadoPago\Payer();
+      $payer->name = "Lalo";
+      $payer->surname = "Landa";
+      $payer->email = "test_user_63274575@testuser.com";
+      $payer->phone = array(
+        "area_code" => "11",
+        "number" => "22223333"
+      );
+      $payer->address = array(
+        "street_name" => "False",
+        "street_number" => 123,
+        "zip_code" => "1111"
+      );
+
+    // Crea un ítem en la preferencia
+    $item = new MercadoPago\Item();
+    $item->id = '1234';
+    $item->title = $_POST['title'];
+    $item->quantity = $_POST['unit'];
+    $item->unit_price = $_POST['price'];
+    $item->picture_url = 'http://http://mp.local.25watts.com.ar' . substr($_POST['img'], 1);
+    $preference->items = array($item);
+    $preference->save();
+?>
+
 <!DOCTYPE html>
 <html class="supports-animation supports-columns svg no-touch no-ie no-oldie no-ios supports-backdrop-filter as-mouseuser" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -11,6 +67,8 @@
     src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
+
+    <script src="https://www.mercadopago.com/v2/security.js" view="item"></script>
 
     <link rel="stylesheet" href="./assets/category-landing.css" media="screen, print">
 
@@ -130,7 +188,8 @@
                                             <?php echo "$" . $_POST['unit'] ?>
                                         </h3>
                                     </div>
-                                    <button type="submit" class="mercadopago-button" formmethod="post">Pagar</button>
+                                    <!-- <button class="mercadopago-button">Pagar la compra</button> -->
+                                    <a href="<?php echo $preference->init_point; ?>">Pagar la compra</a>
                                 </div>
                             </div>
                         </div>
