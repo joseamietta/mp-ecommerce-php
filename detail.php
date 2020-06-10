@@ -1,4 +1,6 @@
 <?php
+    define('APP_URL', 'http://mp.local.25watts.com.ar');
+
     // SDK de Mercado Pago
     require __DIR__ .  '/vendor/autoload.php';
 
@@ -21,13 +23,13 @@
         "installments" => 6
       );
       $preference->back_urls = array(
-        "success" => "http://http://mp.local.25watts.com.ar/success.php",
-        "failure" => "http://http://mp.local.25watts.com.ar/failure.php",
-        "pending" => "http://http://mp.local.25watts.com.ar/pending.php"
+        "success" => APP_URL . "/success.php",
+        "failure" => APP_URL . "/failure.php",
+        "pending" => APP_URL . "/pending.php"
     );
     $preference->auto_return = "approved";
     $preference->external_reference = "jose@25watts.com.ar";
-    $preference->notification_url = 'http://http://mp.local.25watts.com.ar/notification.php';
+    $preference->notification_url = APP_URL . '/notification.php';
 
       $payer = new MercadoPago\Payer();
       $payer->name = "Lalo";
@@ -49,7 +51,7 @@
     $item->title = $_POST['title'];
     $item->quantity = $_POST['unit'];
     $item->unit_price = $_POST['price'];
-    $item->picture_url = 'http://http://mp.local.25watts.com.ar' . substr($_POST['img'], 1);
+    $item->picture_url = APP_URL . substr($_POST['img'], 1);
     $preference->items = array($item);
     $preference->save();
 ?>
