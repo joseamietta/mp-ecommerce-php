@@ -34,19 +34,20 @@
     $preference->external_reference = "joseamietta@gmail.com";
     $preference->notification_url = APP_URL . '/notification.php';
 
-      $payer = new MercadoPago\Payer();
-      $payer->name = "Lalo";
-      $payer->surname = "Landa";
-      $payer->email = "test_user_63274575@testuser.com";
-      $payer->phone = array(
-        "area_code" => "11",
-        "number" => "22223333"
-      );
-      $payer->address = array(
-        "street_name" => "False",
-        "street_number" => 123,
-        "zip_code" => "1111"
-      );
+    $payer = new MercadoPago\Payer();
+    $payer->name = "Lalo";
+    $payer->surname = "Landa";
+    $payer->email = "test_user_63274575@testuser.com";
+    $payer->phone = array(
+    "area_code" => "11",
+    "number" => "22223333"
+    );
+    $payer->address = array(
+    "street_name" => "False",
+    "street_number" => 123,
+    "zip_code" => "1111"
+    );
+    $preference->apyer = $payer;
 
     // Crea un ítem en la preferencia
     $item = new MercadoPago\Item();
@@ -57,6 +58,7 @@
     $item->currency_id = "ARS";
     $item->picture_url = APP_URL . substr($_POST['img'], 1);
     $preference->items = array($item);
+
     $preference->save();
 ?>
 
