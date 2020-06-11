@@ -53,7 +53,8 @@
     $item = new MercadoPago\Item();
     $item->id = '1234';
     $item->title = $_POST['title'];
-    $item->quantity = (int)$_POST['unit'];
+    $item->description = "Dispositivo móvil de Tienda e-commerce";
+    $item->quantity = 1;
     $item->unit_price = (float)$_POST['price'];
     $item->currency_id = "ARS";
     $item->picture_url = APP_URL . substr($_POST['img'], 1);
