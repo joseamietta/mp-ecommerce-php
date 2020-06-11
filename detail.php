@@ -31,7 +31,7 @@
         "pending" => APP_URL . "/pending.php"
     );
     $preference->auto_return = "approved";
-    $preference->external_reference = "jose@25watts.com.ar";
+    $preference->external_reference = "joseamietta@gmail.com";
     $preference->notification_url = APP_URL . '/notification.php';
 
       $payer = new MercadoPago\Payer();
