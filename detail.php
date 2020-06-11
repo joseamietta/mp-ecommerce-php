@@ -1,8 +1,11 @@
 <?php
-    define('APP_URL', 'https://joseamietta-mp-commerce-php.herokuapp.com');
-
-    // SDK de Mercado Pago
     require __DIR__ .  '/vendor/autoload.php';
+
+    // load env vars
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
+    define("APP_URL", $_ENV['APP_URL']);
 
     // sanatize post data
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -69,6 +72,18 @@
     src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
+
+    <script>
+        var redirectUrl = "<?php echo $preference->init_point; ?>";
+
+        jQuery(document).ready(function($){
+
+            $('.mercadopago-button').on('click', function(){
+                if (redirectUrl.length && redirectUrl != "")
+                    window.location.href = "<?php echo $preference->init_point; ?>";
+            })
+        });
+    </script>
 
     <script src="https://www.mercadopago.com/v2/security.js" view="item"></script>
 
@@ -190,8 +205,7 @@
                                             <?php echo "$" . $_POST['unit'] ?>
                                         </h3>
                                     </div>
-                                    <!-- <button class="mercadopago-button">Pagar la compra</button> -->
-                                    <a href="<?php echo $preference->init_point; ?>">Pagar la compra</a>
+                                    <button type="submit" class="mercadopago-button" formmethod="post">Pagar la compra</button>
                                 </div>
                             </div>
                         </div>
