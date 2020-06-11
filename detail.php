@@ -5,7 +5,7 @@
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
 
-    define("APP_URL", $_ENV['APP_URL']);
+    define("APP_URL", $_ENV['APP_URL'] ?? "https://joseamietta-mp-commerce-php.herokuapp.com");
 
     // sanatize post data
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -52,8 +52,9 @@
     $item = new MercadoPago\Item();
     $item->id = '1234';
     $item->title = $_POST['title'];
-    $item->quantity = $_POST['unit'];
-    $item->unit_price = $_POST['price'];
+    $item->quantity = (int)$_POST['unit'];
+    $item->unit_price = (float)$_POST['price'];
+    $item->currency_id = "ARS";
     $item->picture_url = APP_URL . substr($_POST['img'], 1);
     $preference->items = array($item);
     $preference->save();
