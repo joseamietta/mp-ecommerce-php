@@ -44,9 +44,9 @@ $payer->phone = array(
     "number" => "22223333"
 );
 $payer->address = array(
-    "street_name" => "False",
+    "street_name" => False,
     "street_number" => 123,
-    "zip_code" => "1111"
+    "zip_code" => 1111
 );
 $preference->payer = $payer;
 
