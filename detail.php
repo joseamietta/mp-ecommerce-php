@@ -6,6 +6,7 @@ require __DIR__ .  '/vendor/autoload.php';
 // $dotenv->load();
 
 define("APP_URL", "https://joseamietta-mp-commerce-php.herokuapp.com");
+// define("APP_URL", "http://mp.local.25watts.com.ar");
 
 // sanatize post data
 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
