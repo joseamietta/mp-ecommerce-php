@@ -1,11 +1,11 @@
 <?php
     require __DIR__ .  '/vendor/autoload.php';
 
-    // load env vars
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-    $dotenv->load();
+    // // load env vars
+    // $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    // $dotenv->load();
 
-    define("APP_URL", $_ENV['APP_URL'] ?? "https://joseamietta-mp-commerce-php.herokuapp.com");
+    define("APP_URL", "https://joseamietta-mp-commerce-php.herokuapp.com");
 
     // sanatize post data
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
